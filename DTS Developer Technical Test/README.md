@@ -17,7 +17,11 @@ Submission for https://github.com/hmcts/dts-developer-challenge
 1. Install Docker
 2. Clone this repo
 3. From the project root run `docker compose up -d --build`
-4. Go to: https://localhost:????
+4. Go to: https://localhost:8080
+## Available endpoints
+This project uses Swagger UI to display routes and endpoints
+1. Run the project
+2. Go to: https://localhost:5253
 ## Project Structure
 The project loosely follows a layered architecture. Unlike larger codebases which follow Clean Architecture / Layered Architecture, each layer is under the same C# project and is instead represented as a directory.
 ### Controllers
