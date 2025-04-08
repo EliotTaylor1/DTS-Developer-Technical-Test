@@ -1,3 +1,4 @@
+using DTS_Developer_Technical_Test.Domain;
 using DTS_Developer_Technical_Test.Persistence;
 using DTS_Developer_Technical_Test.Services;
 using Microsoft.EntityFrameworkCore;
@@ -6,9 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 var pgConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(pgConnString));
+builder.Services.AddPersistence(pgConnString);
 builder.Services.AddScoped<TaskService>();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => 
+    options.JsonSerializerOptions.Converters.Add(
+        new System.Text.Json.Serialization.JsonStringEnumConverter()
+    ));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
