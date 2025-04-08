@@ -9,6 +9,9 @@ public class TaskService(AppDbContext context)
 
     public TaskItem Create(TaskItem task)
     {
+        // Convert timestamp to UTC in case it's not already for whatever reason
+        task.DueDate = task.DueDate.ToUniversalTime();
+        
         _context.Tasks.Add(task);
         _context.SaveChanges();
         return task;
