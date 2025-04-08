@@ -10,11 +10,13 @@ public class AppDbContext : DbContext
     
     public DbSet<TaskItem> Tasks { get; set; }
     
-    // use PostgreSQL enum type for Task.Status column
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Name the table 'Tasks' instead of 'TaskItem'
+        modelBuilder.Entity<TaskItem>().ToTable("Tasks");
+        
+        // use PostgreSQL enum type for Task.Status column
         modelBuilder.HasPostgresEnum<TaskStatus>(name: "task_status");
-
         // Map the Task.Status prop to the PostgreSQL enum
         modelBuilder.Entity<TaskItem>(entity =>
         {
