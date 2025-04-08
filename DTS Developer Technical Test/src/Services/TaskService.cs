@@ -28,7 +28,7 @@ public class TaskService(AppDbContext context)
         return _context.Tasks.ToList();
     }
     
-    public TaskItem? Update(int id, TaskItem updatedTask)
+    public TaskItem? Update(int id, UpdateTaskItemDto dto)
     {
         var existingTask = _context.Tasks.Find(id);
         if (existingTask == null)
@@ -36,10 +36,11 @@ public class TaskService(AppDbContext context)
             return null;
         }
 
-        // Update all properties except Id
-        _context.Entry(existingTask).CurrentValues
-            .SetValues(updatedTask);
-        existingTask.Id = id;
+        existingTask.Title = dto.Title;
+        existingTask.Description = dto.Description;
+        existingTask.DueDate = dto.DueDate.ToUniversalTime();
+        existingTask.Status = dto.Status;
+        
         _context.SaveChanges();
         return existingTask;
     }

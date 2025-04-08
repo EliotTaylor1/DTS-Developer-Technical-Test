@@ -40,7 +40,7 @@ public class TaskController(TaskService taskService) : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public IActionResult Update(int id, TaskItem updatedTask)
+    public IActionResult Update(int id, UpdateTaskItemDto updatedTask)
     {
         var existingTask = _taskService.Update(id, updatedTask);
         if (existingTask == null)
