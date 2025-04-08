@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTS Developer Technical Test", "DTS Developer Technical Test\DTS Developer Technical Test.csproj", "{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
