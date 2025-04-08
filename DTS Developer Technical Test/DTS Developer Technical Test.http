@@ -1,6 +1,48 @@
 @DTS_Developer_Technical_Test_HostAddress = http://localhost:5253
 
-GET {{DTS_Developer_Technical_Test_HostAddress}}/weatherforecast/
+POST {{DTS_Developer_Technical_Test_HostAddress}}/api/task
 Accept: application/json
 
+{
+    "title": "Example",
+    "status": "Pending",
+    "dueDate": "2023-11-27T05:00:00"
+
+}
+###
+
+POST {{DTS_Developer_Technical_Test_HostAddress}}/api/task
+Accept: application/json
+
+{
+    "title": "Example",
+    "description": "An example description",
+    "status": "InProgress",
+    "dueDate": "2024-12-31T00:00:00"
+
+}
+###
+
+GET {{DTS_Developer_Technical_Test_HostAddress}}/api/task/
+Accept: application/json
+###
+
+GET {{DTS_Developer_Technical_Test_HostAddress}}/api/task/1
+Accept: application/json
+###
+
+PUT {{DTS_Developer_Technical_Test_HostAddress}}/api/task/1
+Accept: application/json
+
+{
+    "title": "Updated Example",
+    "description": "An updated example description",
+    "status": "Completed",
+    "dueDate": "2025-01-01T00:05:00"
+
+}
+###
+
+DELETE {{DTS_Developer_Technical_Test_HostAddress}}/api/task/2
+Accept: application/json
 ###
