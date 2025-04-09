@@ -7,14 +7,22 @@ public class TaskService(AppDbContext context)
 {
     private readonly AppDbContext _context = context;
 
-    public TaskItem Create(TaskItem task)
+    public TaskItem Create(TaskItemDto taskDto)
     {
         // Convert timestamp to UTC in case it's not already for whatever reason
-        task.DueDate = task.DueDate.ToUniversalTime();
+        taskDto.DueDate = taskDto.DueDate.ToUniversalTime();
         
-        _context.Tasks.Add(task);
+        var taskItem = new TaskItem
+        {
+            Title = taskDto.Title,
+            Description = taskDto.Description,
+            Status = taskDto.Status,
+            DueDate = taskDto.DueDate
+        };
+        
+        _context.Tasks.Add(taskItem);
         _context.SaveChanges();
-        return task;
+        return taskItem;
     }
 
     public TaskItem? GetById(int id)
@@ -28,7 +36,7 @@ public class TaskService(AppDbContext context)
         return _context.Tasks.ToList();
     }
     
-    public TaskItem? Update(int id, UpdateTaskItemDto dto)
+    public TaskItem? Update(int id, TaskItemDto dto)
     {
         var existingTask = _context.Tasks.Find(id);
         if (existingTask == null)

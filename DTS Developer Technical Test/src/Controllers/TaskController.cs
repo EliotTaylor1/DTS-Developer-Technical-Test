@@ -11,7 +11,7 @@ public class TaskController(TaskService taskService) : ControllerBase
     private readonly TaskService _taskService = taskService;
     
     [HttpPost]
-    public IActionResult Create(TaskItem task)
+    public IActionResult Create(TaskItemDto task)
     {
         var createdTask = _taskService.Create(task);
         return CreatedAtAction(
@@ -40,7 +40,7 @@ public class TaskController(TaskService taskService) : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public IActionResult Update(int id, UpdateTaskItemDto updatedTask)
+    public IActionResult Update(int id, TaskItemDto updatedTask)
     {
         var existingTask = _taskService.Update(id, updatedTask);
         if (existingTask == null)
