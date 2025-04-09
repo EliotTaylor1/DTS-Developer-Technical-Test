@@ -25,14 +25,14 @@ This project uses Swagger UI to display routes and endpoints
 ## Project Structure
 The project loosely follows a layered architecture. Unlike larger codebases which follow Clean Architecture / Layered Architecture, each layer is under the same C# project and is instead represented as a directory.
 ### Controllers
-- Handle the incoming requests
-- Pass off any logic to the relevant service
-- Send response back to client
-### Services
+- Handles the incoming requests
+- Passes off any logic to the relevant service
+- Sends response back to client
+### Services & Repositories
 - Holds application level logic
 ### Domain
 - Holds models for entities
 - Holds business logic
 ### Persistence 
-- Hold everything to do with PostgreSQL database
+- Holds everything to do with PostgreSQL database
 
