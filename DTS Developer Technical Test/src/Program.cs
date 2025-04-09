@@ -10,7 +10,7 @@ var pgConnString = builder.Configuration.GetConnectionString("DefaultConnection"
 // Add services to the container.
 builder.Services.AddPersistence(pgConnString);
 builder.Services.AddScoped<TaskService>();
-builder.Services.AddScoped<ITaskService, TaskServiceRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddControllers().AddJsonOptions(options => 
     options.JsonSerializerOptions.Converters.Add(
         new System.Text.Json.Serialization.JsonStringEnumConverter()

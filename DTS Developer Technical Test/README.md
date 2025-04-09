@@ -28,11 +28,13 @@ The project loosely follows a layered architecture. Unlike larger codebases whic
 - Handles the incoming requests
 - Passes off any logic to the relevant service
 - Sends response back to client
-### Services & Repositories
+### Services
 - Holds application level logic
 ### Domain
 - Holds models for entities
 - Holds business logic
+### Repositories
+- Interfaces with database
 ### Persistence 
-- Holds everything to do with PostgreSQL database
+- DbContext related actions
 
