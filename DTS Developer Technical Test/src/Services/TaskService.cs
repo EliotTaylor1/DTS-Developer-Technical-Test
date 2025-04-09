@@ -7,7 +7,7 @@ public class TaskService(ITaskRepository repository)
 {
     private readonly ITaskRepository _repository = repository;
 
-    public TaskItem Create(TaskItemDto taskDto)
+    public async Task <TaskItem> Create(TaskItemDto taskDto)
     {
         // Convert timestamp to UTC in case it's not already for whatever reason
         taskDto.DueDate = taskDto.DueDate.ToUniversalTime();
@@ -20,22 +20,22 @@ public class TaskService(ITaskRepository repository)
             DueDate = taskDto.DueDate
         };
         
-        return _repository.Add(taskItem);
+        return await _repository.AddAsync(taskItem);
     }
 
-    public TaskItem? GetById(int id)
+    public async Task <TaskItem?> GetById(int id)
     {
-        return _repository.GetById(id);
+        return await _repository.GetByIdAsync(id);
     }
 
-    public List<TaskItem> Get()
+    public async Task <List<TaskItem>> Get()
     {
-        return _repository.GetAll();
+        return await _repository.GetAllAsync();
     }
     
-    public TaskItem? Update(int id, TaskItemDto dto)
+    public async Task <TaskItem?> Update(int id, TaskItemDto dto)
     {
-        var existingTask = _repository.GetById(id);
+        var existingTask = await _repository.GetByIdAsync(id);
         if (existingTask == null)
         {
             return null;
@@ -46,11 +46,11 @@ public class TaskService(ITaskRepository repository)
         existingTask.DueDate = dto.DueDate.ToUniversalTime();
         existingTask.Status = dto.Status;
         
-        return _repository.Update(existingTask);
+        return await _repository.UpdateAsync(existingTask);
     }
 
-    public TaskItem? Delete(int id)
+    public async Task <TaskItem?> Delete(int id)
     {
-        return _repository.Delete(id);
+        return await _repository.DeleteAsync(id);
     }
 }

@@ -11,9 +11,9 @@ public class TaskController(TaskService taskService) : ControllerBase
     private readonly TaskService _taskService = taskService;
     
     [HttpPost]
-    public IActionResult Create(TaskItemDto task)
+    public async Task<IActionResult> Create(TaskItemDto task)
     {
-        var createdTask = _taskService.Create(task);
+        var createdTask = await _taskService.Create(task);
         return CreatedAtAction(
             nameof(GetTask),
             new { id = createdTask.Id },
@@ -22,9 +22,9 @@ public class TaskController(TaskService taskService) : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetTask(int id)
+    public async Task <IActionResult> GetTask(int id)
     {
-        var task = _taskService.GetById(id);
+        var task = await _taskService.GetById(id);
         if (task == null)
         {
             return NotFound();
@@ -33,16 +33,16 @@ public class TaskController(TaskService taskService) : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetTasks()
+    public async Task<IActionResult> GetTasks()
     {
-        var tasks = _taskService.Get();
+        var tasks = await _taskService.Get();
         return Ok(tasks);
     }
     
     [HttpPut("{id}")]
-    public IActionResult Update(int id, TaskItemDto updatedTask)
+    public async Task <IActionResult> Update(int id, TaskItemDto updatedTask)
     {
-        var existingTask = _taskService.Update(id, updatedTask);
+        var existingTask = await _taskService.Update(id, updatedTask);
         if (existingTask == null)
         {
             return NotFound();
@@ -51,9 +51,9 @@ public class TaskController(TaskService taskService) : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task <IActionResult> Delete(int id)
     {
-        var deletedTask = _taskService.Delete(id);
+        var deletedTask = await _taskService.Delete(id);
         if (deletedTask == null)
         {
             return NotFound();

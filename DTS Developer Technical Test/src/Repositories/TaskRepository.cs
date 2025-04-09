@@ -1,5 +1,6 @@
 using DTS_Developer_Technical_Test.Domain;
 using DTS_Developer_Technical_Test.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DTS_Developer_Technical_Test.Repositories;
 
@@ -7,41 +8,41 @@ public class TaskRepository(AppDbContext context) : ITaskRepository
 {
     private readonly AppDbContext _context = context;
     
-    public TaskItem Add(TaskItem taskItem)
+    public async Task<TaskItem> AddAsync(TaskItem taskItem)
     {
-        _context.Tasks.Add(taskItem);
-        _context.SaveChanges();
+        await _context.Tasks.AddAsync(taskItem);
+        await _context.SaveChangesAsync();
         return taskItem;
     }
 
-    public TaskItem? GetById(int id)
+    public async Task <TaskItem?> GetByIdAsync(int id)
     {
-        var task = _context.Tasks.Find(id);
+        var task = await _context.Tasks.FindAsync(id);
         return task;
     }
 
-    public List<TaskItem> GetAll()
+    public async Task <List<TaskItem>> GetAllAsync()
     {
-        return _context.Tasks.ToList();
+        return await _context.Tasks.ToListAsync();
     }
 
-    public TaskItem? Update(TaskItem taskItem)
+    public async Task <TaskItem?> UpdateAsync(TaskItem taskItem)
     {
         _context.Tasks.Update(taskItem);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return taskItem;
     }
 
-    public TaskItem? Delete(int id)
+    public async Task <TaskItem?> DeleteAsync(int id)
     {
-        var task = _context.Tasks.Find(id);
+        var task = await _context.Tasks.FindAsync(id);
         if (task == null)
         {
             return null;
         }
 
         _context.Tasks.Remove(task);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return task;
     }
 }
