@@ -28,7 +28,6 @@ public class TaskRepository(AppDbContext context) : ITaskRepository
 
     public async Task <TaskItem?> UpdateAsync(TaskItem taskItem)
     {
-        _context.Tasks.Update(taskItem);
         await _context.SaveChangesAsync();
         return taskItem;
     }

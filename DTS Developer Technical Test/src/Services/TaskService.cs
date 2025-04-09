@@ -43,10 +43,11 @@ public class TaskService(ITaskRepository repository)
         
         existingTask.Title = dto.Title;
         existingTask.Description = dto.Description;
-        existingTask.DueDate = dto.DueDate.ToUniversalTime();
+        existingTask.DueDate = dto.DueDate;
         existingTask.Status = dto.Status;
         
-        return await _repository.UpdateAsync(existingTask);
+        await _repository.UpdateAsync(existingTask);
+        return existingTask;
     }
 
     public async Task <TaskItem?> Delete(int id)
