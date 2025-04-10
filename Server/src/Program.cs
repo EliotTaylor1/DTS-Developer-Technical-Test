@@ -17,6 +17,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     ));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("localhost",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173");
+        });
+});
 
 var app = builder.Build();
 
@@ -27,7 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("localhost");
 app.UseHttpsRedirection();
 app.MapControllers();
-
 app.Run();
