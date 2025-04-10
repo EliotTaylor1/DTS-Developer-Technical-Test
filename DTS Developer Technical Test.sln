@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTS Developer Technical Test", "DTS Developer Technical Test\DTS Developer Technical Test.csproj", "{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{6B8F0D0A-7951-4A1B-BA0C-BE9CB7DEB74E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
