@@ -1,6 +1,7 @@
 import type {Data} from "./Table.tsx";
+import type { GridApi } from 'ag-grid-community';
 
 export interface ButtonProps {
-    task: Data;
-    refreshData: () => void;
+    data: Data;
+    api: GridApi;
 }

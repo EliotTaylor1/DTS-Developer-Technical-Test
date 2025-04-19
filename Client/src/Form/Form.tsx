@@ -1,0 +1,53 @@
+import {useState} from "react";
+
+export function Form() {
+    const today = new Date().toISOString().split('T')[0];
+    
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState(today);
+    
+    const handleSubmit = event => {
+        event.preventDefault();
+        const data = {
+            title: title,
+            description: description,
+            dueDate: new Date(date).toISOString(),
+        }
+        fetch('http://localhost:5253/api/Task', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Create task failed');
+                return response.json();
+            })
+            .catch(error => console.error('Error creating task:', error));
+    }
+    return (
+        <form onSubmit={handleSubmit}>
+            <input 
+                type="text" 
+                name="title"
+                placeholder="Title"
+                onChange={(event) => setTitle(event.target.value)}
+                />
+            <input 
+                type="text" 
+                name="description"
+                placeholder="Description"
+                onChange={(event) => setDescription(event.target.value)}
+            />
+            <input 
+                type="date" 
+                name="dueDate"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+            />
+            <button type="submit">Create Task</button>
+        </form>
+    )
+}

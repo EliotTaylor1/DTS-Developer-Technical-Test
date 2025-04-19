@@ -1,22 +1,18 @@
-import { useCallback } from 'react';
-import type {ButtonProps} from "./ButtonProps.ts";
+import type { ButtonProps } from './ButtonProps';
+import './DeleteButton.css'
 
-export default ({ task, refreshData }: ButtonProps) => {
-    const handleDelete = useCallback(() => {
-
-        fetch(`http://localhost:5253/api/Task/${task.id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then(response => {
-                if (!response.ok) throw new Error("Failed to delete task");
-                return response.json();
+export default function DeleteButton({ data, api }: ButtonProps) {
+    const handleDelete = () => {
+        fetch(`http://localhost:5253/api/Task/${data.id}`,
+            { 
+                method: 'DELETE' 
             })
-            .then(() => refreshData())
-            .catch(error => console.error("Error:", error));
-    }, [task, refreshData]);
+            .then(res => {
+                if (!res.ok) throw new Error('Delete failed');
+                api.applyTransaction({ remove: [data] });
+            })
+            .catch(err => console.error(err));
+    };
 
-    return <button onClick={handleDelete}>Delete</button>;
+    return <button className="delete-button" onClick={handleDelete}>Delete</button>;
 };
