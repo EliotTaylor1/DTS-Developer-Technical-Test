@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export function Form() {
+export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi }) {
     const today = new Date().toISOString().split('T')[0];
     
     const [title, setTitle] = useState('');
@@ -25,7 +25,13 @@ export function Form() {
                 if (!response.ok) throw new Error('Create task failed');
                 return response.json();
             })
+            .then(newTask => {
+                if (gridApi) { // Check table exists before we try and add new task
+                    gridApi.applyTransaction({ add: [newTask] });
+                }
+            })
             .catch(error => console.error('Error creating task:', error));
+        
     }
     return (
         <form onSubmit={handleSubmit}>

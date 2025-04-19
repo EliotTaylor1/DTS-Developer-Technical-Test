@@ -4,7 +4,7 @@ import ActionList from "./ActionList.tsx";
 
 import { AgGridReact } from 'ag-grid-react';
 import type { ColDef, ValueFormatterParams } from 'ag-grid-community';
-import { AllCommunityModule, ModuleRegistry, CellValueChangedEvent } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry, CellValueChangedEvent, GridApi } from 'ag-grid-community';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 export type Data = {
@@ -20,20 +20,18 @@ function dateFormatter(params: ValueFormatterParams){
     return date.toLocaleDateString("en-GB", { timeZone: "UTC" });
 }
 
-export function Table(){
-    const [gridApi, setGridApi] = useState(null);
+export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
+    const [gridApi, setGridApi] = useState<GridApi | null>(null);
     const [rowData, setRowData] = useState<Data[]>([]);
-
-    const onGridReady = useCallback(params => {
-        setGridApi(params.api);
-    }, []);
 
     const getRowId = useCallback((params) => params.data.id.toString(), []);
 
     const fetchData = useCallback(() => {
         fetch('http://localhost:5253/api/Task')
             .then(result => result.json())
-            .then(data => setRowData(data));
+            .then(data => {
+                setRowData(data);
+            });
     }, []);
 
     useEffect(() => {
@@ -113,12 +111,16 @@ export function Table(){
     return (
         <div style={{ height: 500 }}>
             <AgGridReact
-                onGridReady={onGridReady}
+                onGridReady={params => {
+                    setGridApi(params.api);
+                    onGridReady(params.api);
+                }}
                 getRowId={getRowId}
                 rowData={rowData}
                 columnDefs={colDefs}
                 pagination={true}
                 onCellValueChanged={onCellChange}
+                deltaRowDataMode={true}
             />
         </div>
     )
