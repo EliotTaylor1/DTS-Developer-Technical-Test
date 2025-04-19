@@ -39,6 +39,7 @@ export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi
                 type="text" 
                 name="title"
                 placeholder="Title"
+                required={true}
                 onChange={(event) => setTitle(event.target.value)}
                 />
             <input 
@@ -51,6 +52,7 @@ export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi
                 type="date" 
                 name="dueDate"
                 value={date}
+                required={true}
                 onChange={(event) => setDate(event.target.value)}
             />
             <button type="submit">Create Task</button>
