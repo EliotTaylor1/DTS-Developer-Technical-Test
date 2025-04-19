@@ -6,35 +6,37 @@ Submission for https://github.com/hmcts/dts-developer-challenge
 - ASP.NET Core
 - PostgreSQL
 ### Frontend
-- Javascript
+- Typescript
+- AG Grid Library to display data in tabular format
 ## Functionality
 - Create a new task
 - View all tasks
-- View tasks by ID
 - Amend a task
 - Delete a task
 ## How to run
 1. Install Docker
 2. Clone this repo
-3. From the project root run `docker compose up -d --build`
-4. Go to: https://localhost:8080
+3. From the project root run `docker compose up --build`
+4. Go to: http://localhost:8080
 ## Available endpoints
 This project uses Swagger UI to display routes and endpoints
-1. Run the project
-2. Go to: https://localhost:5253
+1. Run the `Server` solution
+2. Go to: http://localhost:5253
+
+_Alternatively, check the README.md in the /Server directory_
 ## Project Structure
-The project loosely follows a layered architecture. Unlike larger codebases which follow Clean Architecture / Layered Architecture, each layer is under the same C# project and is instead represented as a directory.
+The project uses a layered architecture. Unlike larger codebases which follow Clean Architecture / Layered Architecture, each layer is under the same C# project and is instead represented as a directory.
 ### Controllers
-- Handles the incoming requests
-- Passes off any logic to the relevant service
-- Sends response back to client
+- Handle the incoming requests
+- Pass off any logic to the relevant service
+- Send response back to client
 ### Services
-- Holds application level logic
+- Hold application level logic
 ### Domain
-- Holds models for entities
-- Holds business logic
+- Hold models for entities
+- Hold business logic
 ### Repositories
-- Interfaces with database
+- Interface with database
 ### Persistence 
 - DbContext related actions
 
