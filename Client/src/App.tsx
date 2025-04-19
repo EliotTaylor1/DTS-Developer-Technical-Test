@@ -11,10 +11,10 @@ function App() {
 
 
     return (
-    <>
+    <div className="container">
         <Form gridApi={gridApi} />
         <Table onGridReady={api => setGridApi(api)} />
-    </>
+    </div>
   )
 }
 

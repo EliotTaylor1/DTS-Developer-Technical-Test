@@ -1,5 +1,7 @@
 import {useState} from "react";
 
+import './Form.css';
+
 export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi }) {
     const today = new Date().toISOString().split('T')[0];
     
@@ -34,21 +36,23 @@ export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi
         
     }
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <input 
+                className="title-input"
                 type="text" 
                 name="title"
                 placeholder="Title"
                 required={true}
                 onChange={(event) => setTitle(event.target.value)}
                 />
-            <input 
-                type="text" 
+            <textarea
+                className="description-input"
                 name="description"
                 placeholder="Description"
                 onChange={(event) => setDescription(event.target.value)}
             />
             <input 
+                className="date-input"
                 type="date" 
                 name="dueDate"
                 value={date}

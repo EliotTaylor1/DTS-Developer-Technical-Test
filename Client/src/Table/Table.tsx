@@ -85,7 +85,7 @@ export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void
                 maxLength: 50
             },
             flex: 1,
-            minWidth: 400
+            minWidth: 150
         },
         {
             field: "description",
@@ -99,7 +99,7 @@ export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void
                 maxLength: 255
             },
             flex: 2,
-            minWidth: 600
+            minWidth: 300
         },
         {
             field: "status",
@@ -109,7 +109,7 @@ export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void
             cellEditorParams: {
                 values: ['Pending', 'InProgress', 'Completed'],
             },
-            minWidth: 150,
+            maxWidth: 130,
         },
         {
             field: "dueDate",
@@ -118,12 +118,12 @@ export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void
             cellEditor: 'agDateCellEditor',
             cellDataType: 'date',
             valueFormatter: dateFormatter,
-            minWidth: 150,
+            maxWidth: 130,
         },
         {
             field: "actions",
             cellRenderer: ActionList,
-            minWidth: 100,
+            maxWidth: 100,
         }
     ]);
 

@@ -1,0 +1,56 @@
+.form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: #1e1e1e;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.form .title-input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #2a2a2a;
+    color: white;
+    height: 1.5rem;
+    width: 20%;
+}
+
+.form .description-input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #2a2a2a;
+    color: white;
+    height: 1.5rem;
+    width: 50%;
+}
+
+.form .date-input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #2a2a2a;
+    color: white;
+    height: 1.5rem;
+    width: 10%;
+}
+
+.form input::placeholder {
+    color: #aaa;
+}
+
+.form button {
+    background: #444;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.form button:hover {
+    background: #666;
+}
