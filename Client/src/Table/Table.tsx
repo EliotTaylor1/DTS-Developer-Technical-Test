@@ -1,10 +1,12 @@
 import {useState, useEffect, useCallback} from "react";
 
 import ActionList from "./ActionList.tsx";
+import './table.css';
 
-import { AgGridReact } from 'ag-grid-react';
-import type { ColDef, ValueFormatterParams } from 'ag-grid-community';
-import { AllCommunityModule, ModuleRegistry, CellValueChangedEvent, GridApi } from 'ag-grid-community';
+import {AgGridReact} from 'ag-grid-react';
+import type {ColDef, ValueFormatterParams} from 'ag-grid-community';
+import {AllCommunityModule, ModuleRegistry, CellValueChangedEvent, GridApi} from 'ag-grid-community';
+
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 export type Data = {
@@ -15,13 +17,13 @@ export type Data = {
     dueDate: string;
 }
 
-function dateFormatter(params: ValueFormatterParams){
+function dateFormatter(params: ValueFormatterParams) {
     let date = new Date(params.value);
-    return date.toLocaleDateString("en-GB", { timeZone: "UTC" });
+    return date.toLocaleDateString("en-GB", {timeZone: "UTC"});
 }
 
-export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
-    const [gridApi, setGridApi] = useState<GridApi | null>(null);
+export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void }) {
+    const [gridApi, setGridApi] = useState<GridApi<Data> | null>(null);
     const [rowData, setRowData] = useState<Data[]>([]);
 
     const getRowId = useCallback((params) => params.data.id.toString(), []);
@@ -37,10 +39,10 @@ export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
     useEffect(() => {
         fetchData();
     }, [fetchData]);
-    
+
 
     const onCellChange = useCallback((event: CellValueChangedEvent) => {
-        const updatedData = { ...event.data};
+        const updatedData = {...event.data};
 
         // Handle Date as a string
         if (updatedData.dueDate) {
@@ -54,12 +56,12 @@ export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
             ));
             updatedData.dueDate = utcDate.toISOString();
         }
-        
+
         console.log("Updated data:", updatedData);
-        
+
         fetch(`http://localhost:5253/api/Task/${updatedData.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(updatedData)
         })
             .then(response => {
@@ -67,32 +69,47 @@ export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
                 return response.json();
             })
             .then(() => {
-                event.api.applyTransaction({ update: [updatedData] });
+                event.api.applyTransaction({update: [updatedData]});
             })
             .catch(error => console.error('Error updating task:', error));
     }, []);
     
+
     const [colDefs] = useState<ColDef[]>([
-        { 
-            field: "title", 
-            filter: true ,
-            editable: true,
-            cellEditor: 'agTextCellEditor',
-        },
-        { 
-            field: "description", 
+        {
+            field: "title",
             filter: true,
             editable: true,
-            cellEditor: 'agLargeTextCellEditor'
+            cellEditor: 'agTextCellEditor',
+            cellEditorParams: {
+                maxLength: 50
+            },
+            flex: 1,
+            minWidth: 400
         },
-        { 
+        {
+            field: "description",
+            filter: true,
+            editable: true,
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorPopup: true,
+            cellEditorParams: {
+                rows: 5,
+                cols: 70,
+                maxLength: 255
+            },
+            flex: 2,
+            minWidth: 600
+        },
+        {
             field: "status",
             filter: true,
             editable: true,
             cellEditor: 'agSelectCellEditor',
             cellEditorParams: {
                 values: ['Pending', 'InProgress', 'Completed'],
-            }
+            },
+            minWidth: 150,
         },
         {
             field: "dueDate",
@@ -100,16 +117,18 @@ export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
             editable: true,
             cellEditor: 'agDateCellEditor',
             cellDataType: 'date',
-            valueFormatter: dateFormatter
+            valueFormatter: dateFormatter,
+            minWidth: 150,
         },
-        { 
+        {
             field: "actions",
             cellRenderer: ActionList,
+            minWidth: 100,
         }
     ]);
-    
+
     return (
-        <div style={{ height: 500 }}>
+        <div className="table">
             <AgGridReact
                 onGridReady={params => {
                     setGridApi(params.api);
@@ -120,7 +139,6 @@ export function Table({ onGridReady }: { onGridReady: (api: GridApi) => void }){
                 columnDefs={colDefs}
                 pagination={true}
                 onCellValueChanged={onCellChange}
-                deltaRowDataMode={true}
             />
         </div>
     )
