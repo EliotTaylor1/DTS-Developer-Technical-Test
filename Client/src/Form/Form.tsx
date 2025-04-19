@@ -31,6 +31,9 @@ export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi
                 if (gridApi) { // Check table exists before we try and add new task
                     gridApi.applyTransaction({ add: [newTask] });
                 }
+                setTitle('');
+                setDescription('');
+                setDate(today);
             })
             .catch(error => console.error('Error creating task:', error));
         
@@ -43,12 +46,14 @@ export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi
                 name="title"
                 placeholder="Title"
                 required={true}
+                value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 />
             <textarea
                 className="description-input"
                 name="description"
                 placeholder="Description"
+                value={description}
                 onChange={(event) => setDescription(event.target.value)}
             />
             <input 
