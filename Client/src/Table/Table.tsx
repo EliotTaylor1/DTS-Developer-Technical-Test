@@ -23,13 +23,13 @@ function dateFormatter(params: ValueFormatterParams) {
 }
 
 export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void }) {
-    const [gridApi, setGridApi] = useState<GridApi<Data> | null>(null);
+    const [, setGridApi] = useState<GridApi<Data> | null>(null);
     const [rowData, setRowData] = useState<Data[]>([]);
 
-    const getRowId = useCallback((params) => params.data.id.toString(), []);
+    const getRowId = useCallback((params: { data: Data }) => params.data.id.toString(), []);
 
     const fetchData = useCallback(() => {
-        fetch('http://localhost:5253/api/Task')
+        fetch('/api/Task')
             .then(result => result.json())
             .then(data => {
                 setRowData(data);
@@ -59,7 +59,7 @@ export function Table({onGridReady}: { onGridReady: (api: GridApi<Data>) => void
 
         console.log("Updated data:", updatedData);
 
-        fetch(`http://localhost:5253/api/Task/${updatedData.id}`, {
+        fetch(`/api/Task/${updatedData.id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(updatedData)

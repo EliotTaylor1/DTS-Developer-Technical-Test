@@ -1,22 +1,23 @@
 import {useState} from "react";
+import type { GridApi } from 'ag-grid-community';
 
 import './Form.css';
 
-export function Form({ gridApi }: { gridApi: import('ag-grid-community').GridApi }) {
+export function Form({ gridApi }: { gridApi: GridApi | null }) {
     const today = new Date().toISOString().split('T')[0];
     
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(today);
     
-    const handleSubmit = event => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
             title: title,
             description: description,
             dueDate: new Date(date).toISOString(),
         }
-        fetch('http://localhost:5253/api/Task', {
+        fetch('/api/Task', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

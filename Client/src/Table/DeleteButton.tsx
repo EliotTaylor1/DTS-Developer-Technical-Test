@@ -3,7 +3,7 @@ import './DeleteButton.css'
 
 export default function DeleteButton({ data, api }: ButtonProps) {
     const handleDelete = () => {
-        fetch(`http://localhost:5253/api/Task/${data.id}`,
+        fetch(`/api/Task/${data.id}`,
             { 
                 method: 'DELETE' 
             })
