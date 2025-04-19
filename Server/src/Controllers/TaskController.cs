@@ -11,7 +11,6 @@ public class TaskController(TaskService taskService) : ControllerBase
 {
     private readonly TaskService _taskService = taskService;
     
-    [EnableCors("localhost")]
     [HttpPost]
     public async Task<IActionResult> Create(TaskItemDto task)
     {
@@ -23,7 +22,6 @@ public class TaskController(TaskService taskService) : ControllerBase
             );
     }
     
-    [EnableCors("localhost")]
     [HttpGet("{id}")]
     public async Task <IActionResult> GetTask(int id)
     {
@@ -34,8 +32,7 @@ public class TaskController(TaskService taskService) : ControllerBase
         }
         return Ok(task);
     }
-
-    [EnableCors("localhost")]
+    
     [HttpGet]
     public async Task<IActionResult> GetTasks()
     {
@@ -43,7 +40,6 @@ public class TaskController(TaskService taskService) : ControllerBase
         return Ok(tasks);
     }
     
-    [EnableCors("localhost")]
     [HttpPut("{id}")]
     public async Task <IActionResult> Update(int id, TaskItemDto updatedTask)
     {
@@ -54,8 +50,7 @@ public class TaskController(TaskService taskService) : ControllerBase
         }
         return Ok(existingTask);
     }
-
-    [EnableCors("localhost")]
+    
     [HttpDelete("{id}")]
     public async Task <IActionResult> Delete(int id)
     {
